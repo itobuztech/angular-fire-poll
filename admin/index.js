@@ -17,10 +17,10 @@ const uid = 'qG94ufcYIHW9OTzYsz1SdkSAtSW2';
 //     console.log("Error fetching user data:", error);
 //   });
 
-  // admin.auth().setCustomUserClaims(uid, {admin: false}).then(() => {
-  //   // The new custom claims will propagate to the user's ID token the
-  //   // next time a new one is issued.
-  //   });
+  admin.auth().setCustomUserClaims(uid, {admin: true}).then(() => {
+    // The new custom claims will propagate to the user's ID token the
+    // next time a new one is issued.
+    });
 
   admin.auth().getUser(uid).then((userRecord) => {
     // The claims can be accessed on the user record.

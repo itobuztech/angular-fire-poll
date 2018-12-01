@@ -1,0 +1,37 @@
+<form [formGroup]="pollForm" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label for="Title">Title</label>
+      <input type="text" formControlName="title" class="form-control" id="Title" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+      <label for="descriptions">Descriptions</label>
+      <textarea  class="form-control" formControlName="descriptions" id="descriptions" placeholder="Descriptions"></textarea>
+    </div>
+
+    <h3>Add question</h3>
+    <div formArrayName="questions">
+    <section  *ngFor="let item of questions.controls; let i = index;">
+        <ng-container [formGroupName]="i">
+        <div class="form-group">
+            <label for="Title">Title of the image</label>
+            <button class="btn btn-sm" (click)="removeItem(i)">Remove</button>
+            <input type="text" class="form-control" id="Title" placeholder="Enter title of the image" formControlName="title">
+        </div>
+        <div class="form-group" *ngIf="item.get('imageurl').value === ''">
+            <label>Upload the image</label><br>
+            <input type="file"  (change)="uploadFile($event, i)">
+        </div>
+        <img style="max-width:150px" [src]="item.get('imageurl').value" alt="" *ngIf="item.get('imageurl').value !== ''">
+    </ng-container>
+    </section>
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-primary" (click)="addItem()">Add question</button>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">
+      <ng-container *ngIf="pollForm.get('id').value === ''"> Create </ng-container> 
+      <ng-container *ngIf="pollForm.get('id').value !== ''"> Update </ng-container> 
+    </button>
+  </form>
