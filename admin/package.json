@@ -1,6 +1,0 @@
-{
-  "name": "adminsdk",
-  "dependencies": {
-    "firebase-admin": "^6.3.0"
-  }
-}
