@@ -8,6 +8,13 @@ export interface Poll {
 
 export interface Question {
   title: string;
-  imageUrl: string;
+  imageurl: string;
   imagepath: string;
+}
+
+export interface PollAnswer {
+  userid: string;
+  pollid: string;
+  answer: string;
+  answerId: string;
 }

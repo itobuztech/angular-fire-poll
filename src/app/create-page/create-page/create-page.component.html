@@ -35,3 +35,10 @@
       <ng-container *ngIf="pollForm.get('id').value !== ''"> Update </ng-container> 
     </button>
   </form>
+
+  <h3>Result</h3>
+  User submited answer: {{answers?.length}}
+  <div *ngFor="let item of result">
+    Vote for design {{item?.q}}:
+     {{item?.count}}
+  </div>

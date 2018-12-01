@@ -7,7 +7,11 @@
 </div>
 
 <h4>Sumit Your favourites</h4>
-<select>
-  <option>Please select</option>
-  <option *ngFor="let item of poll?.questions; let i = index;">{{i + 1}}</option>
-</select>
+<form [formGroup]="userPollForm" (ngSubmit)="submitPoll()">
+  <select formControlName="answer">
+    <option>Please select</option>
+    <option *ngFor="let item of poll?.questions; let i = index;">{{i + 1}}</option>
+  </select>
+
+  <button class="btn btn-primary btn-sm">Submit Answer</button>
+</form>
