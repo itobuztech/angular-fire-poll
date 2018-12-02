@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormArray, FormGroup, Validators} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap, filter } from 'rxjs/operators';
+import { switchMap, filter, debounceTime, take } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { PollService  } from '../../services/poll.service';
 import { Poll, PollAnswer } from 'src/app/interface/poll.interface';
@@ -31,21 +31,26 @@ export class CreatePageComponent implements OnInit {
       descriptions: ['', Validators.required],
       questions: this.formBuilder.array([])
     });
-
     // edit mode
     this.activatedRoute.params
     .pipe(
+      debounceTime(1000),
       filter(params => params['id']),
-      switchMap(params => this.pollService.getById(params.id)))
+      take(1),
+      switchMap(params => this.pollService.getById(params.id))
+      )
     .subscribe((data: Poll[]) => {
       console.log(data);
-
+      this.pollForm.setControl('questions', this.formBuilder.array([]));
       const ques = data[0].questions;
       ques.forEach(item => {
         this.addItem();
       });
       this.pollForm.patchValue(data[0]);
-      this.pollService.getAllAnswerByPollId(data[0].id).subscribe((answerRes: PollAnswer[]) => {
+
+      this.pollService.getAllAnswerByPollId(data[0].id)
+      .pipe(debounceTime(1000))
+      .subscribe((answerRes: PollAnswer[]) => {
         this.answers = answerRes;
         console.log('answers', this.answers);
         const result = {};
@@ -102,10 +107,8 @@ export class CreatePageComponent implements OnInit {
   submit() {
     this.pollService.createPoll(this.pollForm.value);
     if (!this.pollForm.get('id')) {
+      this.pollForm.setControl('questions', this.formBuilder.array([]));
       this.pollForm.reset();
-      this.questions.controls.forEach((item, i) => {
-        this.questions.removeAt(i);
-      });
     }
   }
 }

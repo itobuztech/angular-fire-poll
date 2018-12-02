@@ -1,5 +1,5 @@
 <div class="container">
-<div class="alert-info alert">
+<div class="alert-info alert"  *ngIf="answers?.length">
   This poll can not editable. Users already added {{answers?.length}} votes!
 </div>
 <div class="result-wrap" *ngIf="answers?.length">
