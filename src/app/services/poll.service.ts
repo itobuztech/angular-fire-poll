@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase/app';
 import { Poll, PollAnswer } from '../interface/poll.interface';
 
 @Injectable({
@@ -45,5 +46,13 @@ export class PollService {
 
   getuser() {
     return this.afAuth.user;
+  }
+
+  login() {
+    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
+  }
+
+  logout() {
+    this.afAuth.auth.signOut();
   }
 }

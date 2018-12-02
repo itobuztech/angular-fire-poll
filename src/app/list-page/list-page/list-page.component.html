@@ -1,6 +1,8 @@
-<section *ngFor="let poll of polls" >
-  <h2>{{poll?.title}}</h2>
-  <p>{{poll?.descriptions}}</p>
-  <button class="btn btn-sm" [routerLink]="['/view', poll.id]">View</button>
-  <button class="btn btn-sm" [routerLink]="['/edit', poll.id]">Edit</button>
-</section>
+<div class="container">
+  <section *ngFor="let poll of polls" >
+    <h2>{{poll?.title}}</h2>
+    <p>{{poll?.descriptions}}</p>
+    <button class="btn btn-alt" [routerLink]="['/view', poll.id]">View</button>
+    <button class="btn btn-alt" [routerLink]="['/edit', poll.id]">Edit</button>
+  </section>
+</div>

@@ -1,5 +1,5 @@
-<div class="container-fluid">
-    <ul class="nav nav-pills">
+<div class="container">
+    <ul class="nav nav-pills" *ngIf="user">
         <li class="nav-item">
           <a class="nav-link" routerLink="/list" routerLinkActive="active">All polls</a>
         </li>
@@ -7,8 +7,9 @@
             <a class="nav-link" routerLink="/create" routerLinkActive="active">Create</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" routerLink="/signup" routerLinkActive="active">Signup / login</a>
+            <a class="nav-link" routerLinkActive="active" (click)="pollService.logout()">Logout</a>
         </li>
       </ul>
-  <router-outlet></router-outlet>
 </div>
+  <router-outlet></router-outlet>
+

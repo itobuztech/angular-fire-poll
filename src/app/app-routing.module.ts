@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { UserGuard } from './services/user-guard.guard';
 
 const routes: Routes = [
   {
     path: 'list', loadChildren: './list-page/list-page.module#ListPageModule',
+    canActivate: [UserGuard]
   },
   {
     path: 'create', loadChildren: './create-page/create-page.module#CreatePageModule',
@@ -15,10 +17,10 @@ const routes: Routes = [
     path: 'view/:id', loadChildren: './poll-view/poll-view.module#PollViewModule',
   },
   {
-    path: 'signup', loadChildren: './signup-page/signup.module#SignupModule',
+    path: 'welcome', loadChildren: './welcome-page/welcome-page.module#WelcomePageModule',
   },
   { path: '',
-    redirectTo: '/list',
+    redirectTo: '/welcome',
     pathMatch: 'full'
   },
   // { path: '**', component: NotfoundComponent }
