@@ -50,10 +50,10 @@ export class CreatePageComponent implements OnInit {
         console.log('answers', this.answers);
         const result = {};
         ques.forEach((item, index) => {
-          result[index + 1] = 0;
+          result[item.title] = 0;
         });
         answerRes.forEach(answer => {
-         result[+answer.answer] = result[+answer.answer] + 1;
+         result[answer.answer] = result[answer.answer] + 1;
         });
         this.result = Object.keys(result).map(item => {
           return {
@@ -61,7 +61,6 @@ export class CreatePageComponent implements OnInit {
             count: result[item]
           };
         });
-        console.log(this.result)
       });
     });
   }
